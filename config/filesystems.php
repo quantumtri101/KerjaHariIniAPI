@@ -32,159 +32,159 @@ return [
 
     'local' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file',
     ],
 
     'public' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/public'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/public',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'banner' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/banner'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/banner',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'chat_room' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/chat_room'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/chat_room',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'user' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/user'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/user',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'company' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/company'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/company',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'event' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/event'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/event',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'resume_id' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/resume/id'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/resume/id',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'resume_selfie' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/resume/selfie'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/resume/selfie',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
     
     'bank' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/bank'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/bank',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'jobs' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/jobs'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/jobs',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'jobs_document' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/jobs/document'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/jobs/document',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'user_vaccine_covid' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/user/vaccine_covid'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/user/vaccine_covid',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'user_cv' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/user/cv'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/user/cv',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'category' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/category'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/category',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'sub_category' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/sub_category'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/sub_category',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'pkhl' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/pkhl'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/pkhl',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'pkwt' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/pkwt'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/pkwt',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'check_log_document' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/check_log'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/check_log',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'salary_document' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/salary'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/salary',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'additional_salary_document' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/additional_salary'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/additional_salary',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'chat' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/chat'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/chat',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
 
     'request_withdraw' => [
       'driver' => 'local',
-      'root' => storage_path('../../upload_file/request_withdraw'),
+      'root' => env('URL_STORAGE_PATH').'/upload_file/request_withdraw',
       'url' => env('APP_URL').'/storage',
       'visibility' => 'public',
     ],
@@ -213,7 +213,7 @@ return [
   */
 
   'links' => [
-    public_path('storage') => storage_path('app/public'),
+    public_path('storage') => env('URL_STORAGE_PATH').'/upload_file/public',
   ],
 
 ];
