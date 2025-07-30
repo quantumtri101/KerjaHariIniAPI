@@ -252,7 +252,7 @@ class JobsApplicationController extends BaseController{
     $data->status = $request->status;
     $data->save();
 
-    $this->communication_helper->send_push_notif($data->user, 'Status Pekerjaan', $data->status == 'done' ? 'Selamat, Lamaran Pekerjaan '.$data->jobs->name.' Anda, telah diterima.' : 'Lamaran Pekerjaan '.$data->jobs->name.' Anda , telah ditolak', ["id" => $data->jobs->id, 'type' => "application"]);
+    $this->communication_helper->send_push_notif($data->user, 'Status Pekerjaan', $data->status == 'accepted' ? 'Selamat, Lamaran Pekerjaan '.$data->jobs->name.' Anda, telah diterima.' : 'Lamaran Pekerjaan '.$data->jobs->name.' Anda , telah ditolak', ["id" => $data->jobs->id, 'type' => "application"]);
 
     if($data->status == 'done'){
       $jobs = $data->jobs;

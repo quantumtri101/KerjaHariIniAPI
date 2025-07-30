@@ -20,6 +20,8 @@ use App\Models\JobsRangeSalary;
 use App\Models\JobsSalary;
 use App\Models\JobsShift;
 use App\Models\JobsApprove;
+use App\Models\JobsApproveCheckLog;
+use App\Models\JobsApproveSalary;
 use App\Models\JobsWorkingArea;
 use App\Models\Category;
 use App\Models\SubCategory;
@@ -108,6 +110,8 @@ class JobsController extends BaseController{
     $jobs_model = new Jobs();
     $jobs_application_model = new JobsApplication();
     $jobs_approve_model = new JobsApprove();
+    $jobs_approve_check_log_model = new JobsApproveCheckLog();
+    $jobs_approve_salary_model = new JobsApproveSalary();
     $jobs_shift_model = new JobsShift();
     $event_model = new Event();
     $jobs_recommendation_model = new JobsRecommendation();
@@ -370,13 +374,36 @@ class JobsController extends BaseController{
     //     ->whereNull($jobs_application_model->get_table_name().'.id');
     // }
 
-    if(empty($request->id) && empty($request->user_id) && Auth::check() && Auth::user()->type->name == 'staff'){
+    if(empty($request->user_id) && Auth::check() && Auth::user()->type->name == 'staff'){
       $jobs_approve_temp = JobsApprove::select('jobs1_id')
         ->selectRaw('MAX(id) as id')
         ->groupBy('jobs1_id')
+        ->where('status_approve', '=', 'not_yet_approved')
         ->where('user_id', '=', Auth::user()->id);
 
-      $arr = $arr->joinSub($jobs_approve_temp, $jobs_approve_model->get_table_name(), $jobs_approve_model->get_table_name().'.jobs1_id', '=', $jobs_model->get_table_name().'.id');
+      $jobs_approve_check_log_temp = JobsApproveCheckLog::select('jobs1_id')
+        ->selectRaw('MAX(id) as id')
+        ->groupBy('jobs1_id')
+        ->where('status_approve', '=', 'not_yet_approved')
+        ->where('user_id', '=', Auth::user()->id);
+
+      $jobs_approve_salary_temp = JobsApproveSalary::select('jobs1_id')
+        ->selectRaw('MAX(id) as id')
+        ->groupBy('jobs1_id')
+        ->where('status_approve', '=', 'not_yet_approved')
+        ->where('user_id', '=', Auth::user()->id);
+
+      $arr = $arr->leftJoinSub($jobs_approve_temp, $jobs_approve_model->get_table_name(), $jobs_approve_model->get_table_name().'.jobs1_id', '=', $jobs_model->get_table_name().'.id')
+        ->leftJoinSub($jobs_approve_check_log_temp, $jobs_approve_check_log_model->get_table_name(), $jobs_approve_check_log_model->get_table_name().'.jobs1_id', '=', $jobs_model->get_table_name().'.id')
+        ->leftJoinSub($jobs_approve_salary_temp, $jobs_approve_salary_model->get_table_name(), $jobs_approve_salary_model->get_table_name().'.jobs1_id', '=', $jobs_model->get_table_name().'.id')
+        ->selectRaw('IF('.$jobs_approve_model->get_table_name().'.id IS NOT NULL, TRUE, FALSE) as jobs_approve_status')
+        ->selectRaw('IF('.$jobs_approve_check_log_model->get_table_name().'.id IS NOT NULL, TRUE, FALSE) as jobs_approve_check_log_status')
+        ->selectRaw('IF('.$jobs_approve_salary_model->get_table_name().'.id IS NOT NULL, TRUE, FALSE) as jobs_approve_salary_status')
+        ->where(function($where) use($jobs_approve_model, $jobs_approve_check_log_model, $jobs_approve_salary_model){
+          $where = $where->orWhereNotNull($jobs_approve_model->get_table_name().'.id')
+            ->orWhereNotNull($jobs_approve_check_log_model->get_table_name().'.id')
+            ->orWhereNotNull($jobs_approve_salary_model->get_table_name().'.id');
+        });
     }
 
     if(empty($request->order))
