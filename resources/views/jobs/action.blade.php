@@ -182,6 +182,9 @@
               if($('#radio-open').is(':checked')){
                 shift_start_date = $('#radio-split-no').is(':checked') ? moment($('#startdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment($('#starttimepicker1').val(), 'DD-MM-YYYY HH:mm')
                 shift_end_date = $('#radio-split-no').is(':checked') ? moment($('#enddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment($('#endtimepicker1').val(), 'DD-MM-YYYY HH:mm')
+
+                jobs_submit_ask_modal.shift_start_date = shift_start_date
+                jobs_submit_ask_modal.shift_end_date = shift_end_date
                 $('#jobs_submit_ask_modal').modal('show')
               }
               else{

@@ -10,7 +10,7 @@
       <div class="modal-body">
         <div class="form-group">
           <button type="button" class="btn btn-primary" data-dismiss="modal" @click="only_save">Save Only</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" @click="save_publish">Save & Publish</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" @click="save_publish" v-show="moment_now.isSameOrAfter(shift_start_date)">Save & Publish</button>
         </div>
       </div>
     </div>
@@ -22,6 +22,17 @@
     var jobs_submit_ask_modal = new Vue({
       el: '#jobs_submit_ask_modal',
       data: {
+        moment_now: moment(),
+        shift_start_date: null,
+        shift_end_date: null,
+      },
+      watch: {
+        shift_start_date(val){
+          console.log(val)
+        },
+        shift_end_date(val){
+          console.log(val)
+        },
       },
       methods: {
         only_save(){

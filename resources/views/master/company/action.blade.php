@@ -30,7 +30,7 @@
           <label>{{ __('general.category') }}</label>
           <select name="category_id" required class="form-control">
             @foreach($arr_category as $category)
-              <option value="{{ $category->id }}" {{ !empty($company) && !empty($compant->category) && $company->category->id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+              <option value="{{ $category->id }}" {{ !empty($company) && !empty($company->category) && $company->category->id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
             @endforeach
           </select>
         </div>

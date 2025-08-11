@@ -33,9 +33,11 @@
               </td>
             </tr>
           `
-          await getBase64(arr_category[x].image_data, (response) => {
-            arr_category[x].image = response
-          })
+
+          if(arr_category[x].url_image != '{{ $url_asset."/image/no_image_available.jpeg" }}')
+            await getBase64(arr_category[x].image_data, (response) => {
+              arr_category[x].image = response
+            })
         }
       }
       else

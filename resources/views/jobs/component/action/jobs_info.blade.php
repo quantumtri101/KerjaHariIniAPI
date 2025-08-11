@@ -211,7 +211,7 @@
             format: 'DD-MM-YYYY HH:mm',
             useCurrent: false,
             defaultDate: $('#startdatetimepicker').val() !== "" ? moment($('#startdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : ({{ !empty($jobs) ? 'true' : 'false' }} ? moment('{{ !empty($jobs) ? $jobs->shift[0]->start_date->formatLocalized('%d-%m-%Y %H:%M') : \Carbon\Carbon::now()->addHours(1)->formatLocalized('%d-%m-%Y %H:%M') }}', 'DD-MM-YYYY HH:mm') : selected_event.start_date),
-            minDate: selected_event.start_date != null ? selected_event.start_date : moment().startOf('day'),
+            minDate: selected_event.start_date != null ? selected_event.start_date : false,
             maxDate: $('#enddatetimepicker').val() !== "" ? moment($('#enddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : (selected_event.end_date != null ? selected_event.end_date : false),
             icons: {
               time: 'fa-solid fa-clock',

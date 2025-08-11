@@ -99,14 +99,14 @@ class SidebarHelper{
           "url" => 'master/term-condition',
           "roles" => ["admin", ],
         ],
-        // [
-        //   "id" => 'privacy_policy',
-        //   "name" => 'general.privacy_policy',
-        //   "icon" => 'fa-tachometer-alt',
-        //   "href" => '/master/privacy',
-        //   "url" => 'master/privacy',
-        //   "roles" => ["admin", ],
-        // ],
+        [
+          "id" => 'privacy_policy',
+          "name" => 'general.privacy_policy',
+          "icon" => 'fa-tachometer-alt',
+          "href" => '/master/privacy',
+          "url" => 'master/privacy',
+          "roles" => ["admin", ],
+        ],
         // [
         //   "id" => 'education',
         //   "name" => 'general.education',

@@ -500,7 +500,7 @@ return [
   'status_open_close' => 'Status Open/Closed',
   'urgent' => 'Urgent',
   'not_urgent' => 'Not Urgent',
-  'customer' => 'Staff',
+  'password' => 'Password',
   'customer' => 'Staff',
   'customer' => 'Staff',
   'customer' => 'Staff',

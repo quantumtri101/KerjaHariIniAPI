@@ -24,6 +24,7 @@
           <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ __('general.company_name') }}</th>
           <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ __('general.name') }}</th>
           <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ __('general.date') }}</th>
+          <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ __('general.created_date') }}</th>
           <th class="border-b-2 dark:border-dark-5 whitespace-nowrap">{{ __('general.action') }}</th>
         </tr>
       </thead>
@@ -68,12 +69,13 @@
           "X-CSRF-TOKEN": "{{csrf_token()}}"
         },
       },
-      "order" : [[2, "desc"]],
+      "order" : [[3, "desc"]],
       // deferLoading: 2,
       "columns" : [
         {"data" : "company_name", name: "company.name"},
         {"data" : "name", name: "name"},
         {"data" : "date_format", name: "start_date"},
+        {"data" : "created_at_format", name: "created_at"},
         {"data" : "action", "orderable" : false},
       ],
       "columnDefs" : [

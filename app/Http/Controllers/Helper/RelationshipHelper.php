@@ -152,6 +152,8 @@ class RelationshipHelper{
     $type_model = new Type();
 
     $data->date_format = $data->start_date->formatLocalized('%d %B %Y %H:%M').' - '.$data->end_date->formatLocalized('%d %B %Y %H:%M');
+    $data->created_at_format = $data->created_at->formatLocalized('%d %B %Y %H:%M');
+    $data->updated_at_format = $data->updated_at->formatLocalized('%d %B %Y %H:%M');
     $data->allow_delete = count($data->jobs) == 0;
 		$data->company;
 		$data->image;
@@ -240,7 +242,8 @@ class RelationshipHelper{
     $data->jobs_application;
     foreach($data->skill as $skill){
       $skill->skill;
-      $skill->name = $skill->skill->name;
+      if(!empty($skill->skill))
+        $skill->name = $skill->skill->name;
     }
   }
 
@@ -550,14 +553,12 @@ class RelationshipHelper{
 				->where('user_id', '=', Auth::user()->id)
 				->first();
 
-			$data->status_approve_data = $jobs_approve->status_approve;
+			$data->status_approve_data = !empty($jobs_approve) ? $jobs_approve->status_approve : 'not_available';
 
-			$jobs_approve = JobsApprove::where('jobs1_id', '=', $data->id)
-				->where('user_id', '=', Auth::user()->id)
-				->first();
-			$before_jobs_approve = JobsApprove::where('jobs1_id', '=', $data->id)
-				->where('sort_order', '=', $jobs_approve->sort_order - 1)
-				->first();
+      if(!empty($jobs_approve))
+        $before_jobs_approve = JobsApprove::where('jobs1_id', '=', $data->id)
+          ->where('sort_order', '=', $jobs_approve->sort_order - 1)
+          ->first();
 			$data->before_allow_edit = empty($before_jobs_approve) || (!empty($before_jobs_approve) && $before_jobs_approve->status_approve == "approved");
 		}
   }

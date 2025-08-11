@@ -67,8 +67,8 @@
     function submit_category(){
       if($('#name').val() === "")
         notify_user('{{ __("general.name_empty") }}')
-      else if(url_image === "")
-        notify_user('{{ __("general.image_empty") }}')
+      // else if(url_image === "")
+      //   notify_user('{{ __("general.image_empty") }}')
       else{
         var category = {
           is_publish: is_publish,

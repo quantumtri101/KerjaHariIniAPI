@@ -43,7 +43,7 @@ class EventController extends BaseController{
     $event_model = new Event();
     $company_model = new Company();
 
-    $arr = Event::select($event_model->get_table_name().'.*', $event_model->get_table_name().'.start_date as date_format', $company_model->get_table_name().'.name as company_name',)
+    $arr = Event::select($event_model->get_table_name().'.*', $event_model->get_table_name().'.start_date as date_format', $event_model->get_table_name().'.created_at as created_at_format', $company_model->get_table_name().'.name as company_name',)
       ->leftJoin($company_model->get_table_name(), $event_model->get_table_name().'.company_id', '=', $company_model->get_table_name().'.id');
 
     if(!empty($request->id))

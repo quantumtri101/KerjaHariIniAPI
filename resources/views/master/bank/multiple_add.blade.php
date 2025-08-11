@@ -38,7 +38,7 @@
 
   <div class="form-group mt-3" >
     <a class="btn btn-outline-dark" type="button" onclick="back_page()">{{ __('general.cancel') }}</a>
-    <button class="btn btn-primary" type="button" id="submit">{{ __('general.submit') }}</button>
+    <button class="btn btn-primary" id="submit">{{ __('general.submit') }}</button>
   </div>
 </form>
 
@@ -46,6 +46,7 @@
     <script>
       $(document).ready(() => {
         $('#submit').click((e) => {
+          console.log(arr_bank)
           if(arr_bank.length == 0){
             e.preventDefault()
             notify_user('{{ __("general.list_bank_empty") }}')

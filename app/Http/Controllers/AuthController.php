@@ -25,6 +25,8 @@ use App\Jobs\SendNotificationJob;
 
 class AuthController extends BaseController{
   public function login(Request $request){
+    $user_model = new User();
+    $type_model = new Type();
     // $validation = $this->manage_validation($request, [
     //   // 'email' => 'bail|required',
     //   'password' => 'bail|required',
@@ -32,9 +34,22 @@ class AuthController extends BaseController{
     // if(!empty($validation))
     //   return $this->get_data_helper->return_data($request, $validation, 'back', '');
 
-    $user = User::orWhere('email','=',$request->email)
-      ->orWhere('phone','=',$request->email[0] == '0' ? '+62'.substr($request->email, 1) : $request->email)
-      ->first();
+    $user = User::select($user_model->get_table_name().'.*')
+      ->join($type_model->get_table_name(), $user_model->get_table_name().'.type_id', '=', $type_model->get_table_name().'.id')
+      ->where(function($where) use($user_model, $request){
+        $where = $where->orWhere($user_model->get_table_name().'.email','=',$request->email)
+          ->orWhere($user_model->get_table_name().'.phone','=',$request->email[0] == '0' ? '+62'.substr($request->email, 1) : $request->email);
+      });
+
+    if($request->type == 'web_admin')
+      $user = $user->where(function($where) use($type_model){
+        $where = $where->where($type_model->get_table_name().'.name','!=', 'customer_oncall')
+          ->where($type_model->get_table_name().'.name','!=', 'customer_regular');
+      });
+    else
+      $user = $user->where($type_model->get_table_name().'.name','=', $request->type);
+      
+    $user = $user->first();
 
     if(empty($user))
       return $this->get_data_helper->return_data($request, [
@@ -75,7 +90,7 @@ class AuthController extends BaseController{
 
 
 
-    $token = Auth::attempt(['email' => strtolower($request->email), 'password' => $request->password]);
+    $token = Auth::attempt(['email' => strtolower($request->email), 'password' => $request->password, 'id' => $user->id, ]);
     if(!$token)
       $token = Auth::attempt(['phone' => $request->email[0] == '0' ? '+62'.substr($request->email, 1) : $request->email, 'password' => $request->password]);
 
@@ -402,12 +417,19 @@ class AuthController extends BaseController{
 
   public function send_otp(Request $request){
     $user = Auth::user();
-    if(!empty($request->phone))
-      $user->temp_phone = $request->phone[0] == "0" ? "+62".substr($request->phone, 1) : $request->phone;
-    $user->save();
+    // if(!empty($request->phone))
+    //   $user->temp_phone = $request->phone[0] == "0" ? "+62".substr($request->phone, 1) : $request->phone;
     $otp_code = $this->string_helper->generateOTP(6);
+    $user->otp_code = $otp_code;
+    $user->save();
 
-    $this->send_sms_helper->send_otp($user, __('controller.otp_code_message', ['otp_code' => $otp_code]), $otp_code);
+    // $this->send_sms_helper->send_otp($user, __('controller.otp_code_message', ['otp_code' => $otp_code]), $otp_code);
+    SendEmailAuthJob::dispatch('email.auth.otp', [
+      'user' => $user,
+      'app_name' => $this->app_name,
+    ], $user, 'Send OTP')
+      ->onQueue('worker_1')
+      ->afterResponse();
 
     return $this->get_data_helper->return_data($request, [
       'status' => 'success',
@@ -424,16 +446,16 @@ class AuthController extends BaseController{
 
     $user = Auth::check() ? Auth::user() : User::where('phone', 'like', $request->phone)->first();
 
-    // if($request->otp_code != $user->otp_code)
-    //   return $this->get_data_helper->return_data($request, [
-    //     'status' => 'error',
-    //     'message' => __('controller.otp_code_wrong'),
-    //   ], 'back', '');
+    if($request->otp_code != $user->otp_code)
+      return $this->get_data_helper->return_data($request, [
+        'status' => 'error',
+        'message' => __('controller.otp_code_wrong'),
+      ], 'back', '');
 
     // $user->phone = $user->temp_phone;
     $user->phone_verified_at = Carbon::now();
     $user->is_active = 1;
-    // $user->save();
+    $user->save();
 
     return $this->get_data_helper->return_data($request, [
       'status' => 'success',

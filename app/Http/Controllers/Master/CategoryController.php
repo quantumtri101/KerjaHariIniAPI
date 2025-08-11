@@ -86,7 +86,6 @@ class CategoryController extends BaseController{
 
     return $this->get_data_helper->return_data($request, [
       'status' => 'success',
-      'data' => $data,
     ], 'redirect', '/master/category');
   }
 
