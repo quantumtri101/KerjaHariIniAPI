@@ -84,11 +84,12 @@ Route::prefix('auth')->group(function () {
   Route::post('/login/social-media', [AuthController::class, 'login_social_media']);
   Route::post('/forget-password', [AuthController::class, 'forget_password']);
   Route::post('/change-password', [AuthController::class, 'change_password']);
-  
+  Route::post('/otp/send', [AuthController::class, 'send_otp']);
+  Route::post('/otp/confirm', [AuthController::class, 'confirm_otp']);
 
   Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/otp/confirm', [AuthController::class, 'confirm_otp']);
-    Route::post('/otp/send', [AuthController::class, 'send_otp']);
+    
+    
 
     Route::post('/logout', [AuthController::class, 'api_logout']);
     Route::post('/change-profile', [AuthController::class, 'change_profile']);
