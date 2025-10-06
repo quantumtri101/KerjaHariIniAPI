@@ -25,9 +25,9 @@
       $('#shiftStartdatetimepicker').datetimepicker({
         format: 'DD-MM-YYYY HH:mm',
         useCurrent: false,
-        defaultDate: $('#shiftStartdatetimepicker').val() !== "" ? moment($('#shiftStartdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment('{{ !empty($jobs) ? $jobs->start_date->formatLocalized('%d-%m-%Y') : \Carbon\Carbon::now()->formatLocalized('%d-%m-%Y') }}', 'DD-MM-YYYY HH:mm'),
-        minDate: moment().startOf('day'),
-        maxDate: $('#shiftEnddatetimepicker').val() !== "" ? moment($('#shiftEnddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment().add(3, 'd'),
+        // defaultDate: $('#shiftStartdatetimepicker').val() !== "" ? moment($('#shiftStartdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment('{{ !empty($jobs) ? $jobs->start_date->formatLocalized('%d-%m-%Y') : \Carbon\Carbon::now()->formatLocalized('%d-%m-%Y') }}', 'DD-MM-YYYY HH:mm'),
+        // minDate: moment().startOf('day'),
+        // maxDate: $('#shiftEnddatetimepicker').val() !== "" ? moment($('#shiftEnddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment().add(3, 'd'),
         icons: {
           time: 'fa-solid fa-clock',
           date: 'fa-solid fa-calendar',
@@ -47,8 +47,8 @@
       $('#shiftEnddatetimepicker').datetimepicker({
         format: 'DD-MM-YYYY HH:mm',
         useCurrent: false,
-        defaultDate: $('#shiftEnddatetimepicker').val() !== "" ? moment($('#shiftEnddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment('{{ !empty($jobs) ? $jobs->end_date->formatLocalized('%d-%m-%Y') : \Carbon\Carbon::now()->addDays(1)->formatLocalized('%d-%m-%Y') }}', 'DD-MM-YYYY HH:mm'),
-        minDate: $('#shiftStartdatetimepicker').val() !== "" ? moment($('#shiftStartdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment().startOf('day'),
+        // defaultDate: $('#shiftEnddatetimepicker').val() !== "" ? moment($('#shiftEnddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment('{{ !empty($jobs) ? $jobs->end_date->formatLocalized('%d-%m-%Y') : \Carbon\Carbon::now()->addDays(1)->formatLocalized('%d-%m-%Y') }}', 'DD-MM-YYYY HH:mm'),
+        // minDate: $('#shiftStartdatetimepicker').val() !== "" ? moment($('#shiftStartdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment().startOf('day'),
         icons: {
           time: 'fa-solid fa-clock',
           date: 'fa-solid fa-calendar',
@@ -84,7 +84,12 @@
     }
 
     function submit_banner(){
-      if(url_image === "")
+      var start_date = moment($('#shiftStartdatetimepicker').val(), 'DD-MM-YYYY HH:mm')
+      var end_date = moment($('#shiftEnddatetimepicker').val(), 'DD-MM-YYYY HH:mm')
+      
+      if(start_date.isAfter(end_date))
+        notify_user("Start date is after End date")
+      else if(url_image === "")
         notify_user('{{ __("general.image_empty") }}')
       else{
         var banner = {

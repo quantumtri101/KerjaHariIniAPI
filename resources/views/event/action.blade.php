@@ -98,7 +98,7 @@
             useCurrent: false,
             defaultDate: $('#startdatetimepicker').val() !== "" ? moment($('#startdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : (start_date != '' ? moment(start_date, 'DD-MM-YYYY HH:mm') : moment()),
             //minDate: moment(),
-            maxDate: !startDateFirstTime1 && $('#enddatetimepicker').val() !== "" ? moment($('#enddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : false,
+            // maxDate: !startDateFirstTime1 && $('#enddatetimepicker').val() !== "" ? moment($('#enddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : false,
             icons: {
               time: 'fa-solid fa-clock',
               date: 'fa-solid fa-calendar',
@@ -141,7 +141,7 @@
             format: 'DD-MM-YYYY HH:mm',
             useCurrent: false,
             defaultDate: $('#enddatetimepicker').val() !== "" ? moment($('#enddatetimepicker').val(), 'DD-MM-YYYY HH:mm') : (end_date != "" ? moment(end_date, 'DD-MM-YYYY HH:mm') : moment().add(1, 'd')),
-            minDate: $('#startdatetimepicker').val() !== "" ? moment($('#startdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment().add(1, 'd'),
+            // minDate: $('#startdatetimepicker').val() !== "" ? moment($('#startdatetimepicker').val(), 'DD-MM-YYYY HH:mm') : moment().add(1, 'd'),
             icons: {
               time: 'fa-solid fa-clock',
               date: 'fa-solid fa-calendar',
@@ -188,7 +188,14 @@
           $('#phone').val(phone_validation($('#phone').val()))
         })
         $('#submit').click((e) => {
-          
+          var start_date = moment($('#startdatetimepicker').val(), 'DD-MM-YYYY HH:mm'), end_date = moment($('#enddatetimepicker').val(), 'DD-MM-YYYY HH:mm'), message = ''
+          if(start_date.isAfter(end_date))
+            message = "{{ __('general.start_date_after_end') }}"
+
+          if(message != ''){
+            e.preventDefault()
+            alert(message)
+          }
         })
       })
     </script>

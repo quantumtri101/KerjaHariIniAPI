@@ -149,6 +149,12 @@
         message = "{{ __('general.briefing_location_empty') }}"
       else if($('#radio-briefing-yes').is(':checked') && $('#date_briefing').val() == "")
         message = "{{ __('general.briefing_date_empty') }}"
+      else if(
+        $('#radio-briefing-yes').is(':checked') && $('#radio-interview-yes').is(':checked') && 
+        $('#date_briefing').val() != "" && $('#interview_date').val() != "" && 
+        moment($('#interview_date').val(), 'DD-MM-YYYY HH:mm').isAfter(moment($('#date_briefing').val(), 'DD-MM-YYYY HH:mm'))
+      )
+        message = "{{ __('general.interview_date_after_briefing') }}"
       return message
     }
 
@@ -159,7 +165,7 @@
         format: 'DD-MM-YYYY HH:mm',
         useCurrent: false,
         defaultDate: moment(defaultDate, 'DD-MM-YYYY HH:mm'),
-        minDate: moment(defaultDate, 'DD-MM-YYYY HH:mm'),
+        // minDate: moment(defaultDate, 'DD-MM-YYYY HH:mm'),
         icons: {
           time: 'fa-solid fa-clock',
           date: 'fa-solid fa-calendar',
@@ -180,7 +186,7 @@
         format: 'DD-MM-YYYY HH:mm',
         useCurrent: false,
         defaultDate: moment(defaultDate, 'DD-MM-YYYY HH:mm'),
-        minDate: $('#interview_date').val() !== "" ? moment($('#interview_date').val(), 'DD-MM-YYYY HH:mm') : moment().startOf('day'),
+        // minDate: $('#interview_date').val() !== "" ? moment($('#interview_date').val(), 'DD-MM-YYYY HH:mm') : moment().startOf('day'),
         icons: {
           time: 'fa-solid fa-clock',
           date: 'fa-solid fa-calendar',

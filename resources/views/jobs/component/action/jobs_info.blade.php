@@ -185,8 +185,8 @@
         message = "{{ __('general.start_date_empty') }}"
       else if($('#radio-split-no').is(':checked') && $('#enddatetimepicker').val() == "")
         message = "{{ __('general.end_date_empty') }}"
-      else if($('#radio-split-no').is(':checked') && start_time_no_split.isAfter(end_time_no_split))
-        message = "Start date is after End date"
+      else if(start_time_no_split != null && end_time_no_split != null && start_time_no_split.isAfter(end_time_no_split))
+        message = "{{ __('general.start_date_after_end') }}"
       else if(!$('#radio-regular-fixed').is(':checked') && !$('#radio-regular-per_hour').is(':checked'))
         message = "{{ __('general.salary_type_regular_not_choosen') }}"
       else if($('#salary_regular').val() == "" || $('#salary_regular').val() == "0")

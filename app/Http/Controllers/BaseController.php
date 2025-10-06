@@ -51,7 +51,7 @@ class BaseController extends Controller{
   public $base_helper;
 
   public function __construct(){
-    $this->web_admin_name = __('general.app_name');
+    $this->web_admin_name = env('APP_NAME', 'Casual');
     $this->url_asset = url('/');
 
     $this->file_helper = new FileHelper();

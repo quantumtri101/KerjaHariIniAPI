@@ -81,9 +81,9 @@
         $('#publishstartdatetimepicker').datetimepicker({
           format: 'DD-MM-YYYY HH:mm',
           useCurrent: false,
-          defaultDate: moment().isAfter(shift_start_date) ? shift_start_date : moment(),
-          minDate: false,
-          maxDate: shift_start_date,
+          // defaultDate: moment().isAfter(shift_start_date) ? shift_start_date : moment(),
+          // minDate: false,
+          // maxDate: shift_start_date,
           icons: {
             time: 'fa-solid fa-clock',
             date: 'fa-solid fa-calendar',
@@ -139,9 +139,9 @@
         $('#publishenddatetimepicker').datetimepicker({
           format: 'DD-MM-YYYY HH:mm',
           useCurrent: false,
-          defaultDate: moment().isAfter(shift_start_date) ? shift_start_date : moment(),
-          minDate: false,
-          maxDate: shift_start_date,
+          // defaultDate: moment().isAfter(shift_start_date) ? shift_start_date : moment(),
+          // minDate: false,
+          // maxDate: shift_start_date,
           icons: {
             time: 'fa-solid fa-clock',
             date: 'fa-solid fa-calendar',
