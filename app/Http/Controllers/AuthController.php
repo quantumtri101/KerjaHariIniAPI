@@ -416,7 +416,7 @@ class AuthController extends BaseController{
   }
 
   public function send_otp(Request $request){
-    $user = Auth::user();
+    $user = Auth::check() ? Auth::user() : User::where('phone', '=', $request->phone)->first();
     // if(!empty($request->phone))
     //   $user->temp_phone = $request->phone[0] == "0" ? "+62".substr($request->phone, 1) : $request->phone;
     $otp_code = $this->string_helper->generateOTP(6);
