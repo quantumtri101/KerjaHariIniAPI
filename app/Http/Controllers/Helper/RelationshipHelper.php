@@ -238,7 +238,8 @@ class RelationshipHelper{
     $data->bank;
     $data->id_no = $data->user->id_no;
     $data->education;
-    $data->experience;
+    foreach($data->experience as $experience)
+      $experience->city->province->country;
     $data->jobs_application;
     foreach($data->skill as $skill){
       $skill->skill;

@@ -50,7 +50,7 @@ class ResumeController extends BaseController{
     $arr = Resume::select($resume_modal->get_table_name().'.*')
       ->join($user_modal->get_table_name(), $resume_modal->get_table_name().'.user_id', '=', $user_modal->get_table_name().'.id')
       ->join($bank_modal->get_table_name(), $resume_modal->get_table_name().'.bank_id', '=', $bank_modal->get_table_name().'.id')
-      ->join($city_modal->get_table_name(), $resume_modal->get_table_name().'.city_id', '=', $city_modal->get_table_name().'.id');
+      ->leftJoin($city_modal->get_table_name(), $resume_modal->get_table_name().'.city_id', '=', $city_modal->get_table_name().'.id');
 
     if(!empty($request->id))
       $arr = $arr->where($resume_modal->get_table_name().'.id', '=', $request->id);
